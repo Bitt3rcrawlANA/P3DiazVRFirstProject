@@ -7,6 +7,15 @@ using UnityEngine.Events;
 /// </summary>
 public class OnCollision : MonoBehaviour
 {
+    Rigidbody rb;
+    AudioSource bounce;
+
+    void Start()
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        bounce = GetComponent<AudioSource>();
+    }
+
     [Serializable] public class CollisionEvent : UnityEvent<Collision> { }
 
     // When the object enters a collision
@@ -18,6 +27,10 @@ public class OnCollision : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         OnEnter.Invoke(collision);
+        if (collision.relativeVelocity.magnitude > 0.5)
+        {
+            bounce.volume = rb.velocity.sqrMagnitude / 100;
+        }
     }
 
     private void OnCollisionExit(Collision collision)

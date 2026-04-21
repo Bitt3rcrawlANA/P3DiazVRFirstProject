@@ -19,6 +19,8 @@ public class ShowMessageFromList : MonoBehaviour
 
     private int index = 0;
 
+    public bool feacher = false;
+
     private void Start()
     {
         ShowMessage();
